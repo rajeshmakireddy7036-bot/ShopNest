@@ -1,0 +1,12 @@
+{
+    "name": "shopnest-monorepo",
+    "version": "1.0.0",
+    "scripts": {
+        "install:frontend": "cd FRONTEND && npm install",
+        "build:frontend": "cd FRONTEND && npm run build",
+        "copy:frontend": "mkdir -p BACKEND/src/main/resources/static && cp -r FRONTEND/dist/* BACKEND/src/main/resources/static/",
+        "build:backend": "cd BACKEND && mvn clean package -DskipTests",
+        "build": "npm run install:frontend && npm run build:frontend && npm run copy:frontend && npm run build:backend",
+        "start": "java -Dserver.port=$PORT -jar BACKEND/target/backend-0.0.1-SNAPSHOT.jar"
+    }
+}
