@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Mail, Shield, Trash2, User as UserIcon } from 'lucide-react';
+import { fetchWithAuth } from '../utils/api';
 
 const AdminUsers = () => {
     const [users, setUsers] = useState([]);
@@ -11,7 +12,7 @@ const AdminUsers = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await fetch('/api/admin/users');
+            const res = await fetchWithAuth('/api/admin/users');
             const data = await res.json();
             setUsers(data);
         } catch (err) {

@@ -16,6 +16,12 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private com.shopnest.backend.config.JwtUtils jwtUtils;
+
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody @NonNull User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
@@ -31,6 +37,9 @@ public class AuthController {
             user.setRole("ROLE_USER");
         }
 
+        // --- PASSWORD HASHING ---
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         // Save new user to the database
         userRepository.save(user);
 
@@ -41,8 +50,15 @@ public class AuthController {
     public ResponseEntity<?> loginUser(@RequestBody @NonNull User loginRequest) {
         Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
 
-        if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
-            return ResponseEntity.ok(user.get());
+        // --- PASSWORD VERIFICATION ---
+        if (user.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
+            String jwt = jwtUtils.generateJwtToken(user.get().getEmail());
+
+            java.util.Map<String, Object> response = new java.util.HashMap<>();
+            response.put("token", jwt);
+            response.put("user", user.get());
+
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(401).body("Error: Invalid email or password!");
         }

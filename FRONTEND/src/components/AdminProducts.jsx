@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Package } from 'lucide-react';
+import { fetchWithAuth } from '../utils/api';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ const AdminProducts = () => {
 
     const fetchProducts = async () => {
         try {
-            const res = await fetch('/api/admin/products');
+            const res = await fetchWithAuth('/api/admin/products');
             const data = await res.json();
             setProducts(data);
         } catch (err) {
@@ -41,9 +42,8 @@ const AdminProducts = () => {
         const method = editingProduct ? 'PUT' : 'POST';
 
         try {
-            await fetch(url, {
+            await fetchWithAuth(url, {
                 method,
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(finalData)
             });
             setShowForm(false);
@@ -68,7 +68,7 @@ const AdminProducts = () => {
 
     const handleDelete = async (id) => {
         if (window.confirm('Delete this product?')) {
-            await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
+            await fetchWithAuth(`/api/admin/products/${id}`, { method: 'DELETE' });
             fetchProducts();
         }
     };

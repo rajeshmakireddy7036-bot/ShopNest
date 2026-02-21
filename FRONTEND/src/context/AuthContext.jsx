@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
             } catch (e) {
                 console.error("Error parsing user from localStorage:", e);
                 localStorage.removeItem('user');
+                localStorage.removeItem('token');
             }
         }
         if (savedAdmin) {
@@ -25,22 +26,27 @@ export const AuthProvider = ({ children }) => {
             } catch (e) {
                 console.error("Error parsing adminUser from localStorage:", e);
                 localStorage.removeItem('adminUser');
+                localStorage.removeItem('token');
             }
         }
         setLoading(false);
     }, []);
 
-    const login = (userData, role) => {
+    const login = (data, role) => {
+        const { user, token } = data;
+        localStorage.setItem('token', token);
+
         if (role === 'ADMIN') {
-            setAdminUser(userData);
-            localStorage.setItem('adminUser', JSON.stringify(userData));
+            setAdminUser(user);
+            localStorage.setItem('adminUser', JSON.stringify(user));
         } else {
-            setUser(userData);
-            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
         }
     };
 
     const logout = (role) => {
+        localStorage.removeItem('token');
         if (role === 'ADMIN') {
             setAdminUser(null);
             localStorage.removeItem('adminUser');
@@ -55,8 +61,10 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('user', JSON.stringify(userData));
     };
 
+    const getToken = () => localStorage.getItem('token');
+
     return (
-        <AuthContext.Provider value={{ user, adminUser, login, logout, updateUser, loading }}>
+        <AuthContext.Provider value={{ user, adminUser, login, logout, updateUser, getToken, loading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Package, Users, DollarSign, RotateCcw } from 'lucide-react';
+import { fetchWithAuth } from '../utils/api';
 
 const AdminHome = () => {
     const [stats, setStats] = useState({
@@ -13,7 +14,7 @@ const AdminHome = () => {
 
     const fetchStats = async () => {
         try {
-            const res = await fetch('/api/admin/stats');
+            const res = await fetchWithAuth('/api/admin/stats');
             const data = await res.json();
             setStats(data);
             setLoading(false);
@@ -34,7 +35,7 @@ const AdminHome = () => {
 
         try {
             const endpoint = type === 'Total Sales' ? '/api/admin/stats/sales' : '/api/admin/stats/orders';
-            const res = await fetch(endpoint, { method: 'DELETE' });
+            const res = await fetchWithAuth(endpoint, { method: 'DELETE' });
             if (res.ok) {
                 fetchStats();
             } else {

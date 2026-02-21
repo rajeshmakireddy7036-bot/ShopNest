@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Package, Truck, Check } from 'lucide-react';
+import { fetchWithAuth } from '../utils/api';
 
 const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -10,7 +11,7 @@ const AdminOrders = () => {
 
     const fetchOrders = async () => {
         try {
-            const res = await fetch('/api/admin/orders');
+            const res = await fetchWithAuth('/api/admin/orders');
             const data = await res.json();
             setOrders(data);
         } catch (err) {
@@ -20,9 +21,8 @@ const AdminOrders = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            await fetch(`/api/admin/orders/${id}/status`, {
+            await fetchWithAuth(`/api/admin/orders/${id}/status`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(status)
             });
             fetchOrders();

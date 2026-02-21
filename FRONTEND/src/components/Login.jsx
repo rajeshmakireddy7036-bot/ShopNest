@@ -43,7 +43,8 @@ const Login = () => {
                 throw new Error(errorData || 'Login failed');
             }
 
-            const user = await response.json();
+            const data = await response.json();
+            const user = data.user;
 
             // Validate if user belongs to the selected portal
             if (role === 'ADMIN' && user.role !== 'ROLE_ADMIN') {
@@ -54,7 +55,7 @@ const Login = () => {
                 throw new Error('This is an Admin account. Please use the Admin Portal for login.');
             }
 
-            authLogin(user, role);
+            authLogin(data, role);
 
             if (role === 'ADMIN') {
                 navigate('/admin/dashboard');
