@@ -1,6 +1,8 @@
 {
     "name": "shopnest-monorepo",
     "version": "1.0.0",
+    "private": true,
+    "license": "MIT",
     "scripts": {
         "install:frontend": "cd FRONTEND && npm install",
         "build:frontend": "cd FRONTEND && npm run build",
