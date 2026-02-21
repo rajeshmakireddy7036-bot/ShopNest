@@ -4,12 +4,15 @@ C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\back
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\config\DataInitializer.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\controller\TestController.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\controller\UserController.java
+C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\config\AuthTokenFilter.java
+C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\config\JwtUtils.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\repository\ProductRepository.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\model\Product.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\model\User.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\controller\AuthController.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\ShopNestBackendApplication.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\controller\AdminController.java
+C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\config\SecurityConfig.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\repository\OrderRepository.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\model\Order.java
 C:\Users\rajes\OneDrive\Desktop\ShopNest\BACKEND\src\main\java\com\shopnest\backend\repository\UserRepository.java

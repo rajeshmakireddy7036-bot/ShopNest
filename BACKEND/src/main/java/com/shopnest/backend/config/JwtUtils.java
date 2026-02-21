@@ -13,10 +13,11 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    // In a real app, move this to application.properties and use a long random
-    // string
-    private String jwtSecret = "ShopNestSecretKeyForJWTAuthenticationWhichShouldBeVeryLongAndSecure";
-    private int jwtExpirationMs = 86400000; // 24 hours
+    @org.springframework.beans.factory.annotation.Value("${shopnest.jwt.secret}")
+    private String jwtSecret;
+
+    @org.springframework.beans.factory.annotation.Value("${shopnest.jwt.expirationMs}")
+    private int jwtExpirationMs;
 
     private Key key() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());

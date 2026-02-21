@@ -19,6 +19,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUserProfile(@PathVariable @NonNull String id,
             @RequestBody @NonNull User updatedUser) {
@@ -26,6 +29,7 @@ public class UserController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            // --- PROFILE UPDATE LOGIC ---
             user.setFullName(updatedUser.getFullName());
             user.setEmail(updatedUser.getEmail());
             user.setPhone(updatedUser.getPhone());
@@ -56,12 +60,13 @@ public class UserController {
             String currentPassword = passwordRequest.get("currentPassword");
             String newPassword = passwordRequest.get("newPassword");
 
-            // Verify current password (plain text as per active login logic)
-            if (!user.getPassword().equals(currentPassword)) {
+            // --- BCrypt PASSWORD VERIFICATION ---
+            if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
                 return ResponseEntity.badRequest().body("Error: Current password is incorrect!");
             }
 
-            user.setPassword(newPassword);
+            // --- BCrypt PASSWORD ENCODING ---
+            user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             return ResponseEntity.ok("Password updated successfully!");
         } else {
