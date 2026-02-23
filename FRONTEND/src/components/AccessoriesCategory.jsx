@@ -147,9 +147,9 @@ const AccessoriesCategory = () => {
                 </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+            <div className="category-content-wrapper">
                 {showFilters && (
-                    <div className="admin-card" style={{ width: '300px', flexShrink: 0, position: 'sticky', top: '2rem' }}>
+                    <div className="admin-card filters-sidebar">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                             <h3 style={{ margin: 0, fontSize: '1.2rem' }}>Filter By</h3>
                             <button onClick={() => {
@@ -180,7 +180,7 @@ const AccessoriesCategory = () => {
                         <div className="filter-group" style={{ marginBottom: '2rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                                 <h4 style={{ margin: 0, fontSize: '1rem' }}>Price</h4>
-                                <span style={{ fontWeight: '600', color: 'var(--primary)' }}>Under ${priceRange}</span>
+                                <span style={{ fontWeight: '600', color: 'var(--primary)' }}>Under ₹{priceRange}</span>
                             </div>
                             <input
                                 type="range"
@@ -272,7 +272,7 @@ const AccessoriesCategory = () => {
                                                 onClick={() => navigate(`/product/${product.id}`)}>
                                                 {product.name}
                                             </h3>
-                                            <span className="product-price">${product.price}</span>
+                                            <span className="product-price">₹{product.price}</span>
                                         </div>
                                         <p className="product-category">{product.subCategory || product.category}</p>
                                         <div style={{ display: 'flex', gap: '0.3rem', marginTop: '0.5rem' }}>

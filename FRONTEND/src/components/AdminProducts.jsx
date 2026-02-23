@@ -234,7 +234,7 @@ const AdminProducts = () => {
                                         <td>{product.name}</td>
                                         <td>{product.category}</td>
                                         <td>{product.gender || 'N/A'}</td>
-                                        <td>${product.price}</td>
+                                        <td>₹{product.price}</td>
                                         <td>{product.stock}</td>
                                         <td>
                                             <div className="action-btns">

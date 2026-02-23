@@ -44,12 +44,24 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root,
+.app {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 a {
@@ -553,8 +565,8 @@ button {
 
 @media (max-width: 480px) {
   .products-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 }
 
@@ -600,7 +612,8 @@ button {
 
 @media (max-width: 480px) {
   .product-img-container {
-    min-height: 250px;
+    min-height: 154px;
+    /* Maintain aspect ratio roughly for 2 cols */
   }
 }
 
@@ -671,7 +684,35 @@ button {
 }
 
 .product-info {
-  padding: 1.5rem;
+  padding: 1rem;
+}
+
+@media (max-width: 480px) {
+  .product-info {
+    padding: 0.6rem;
+  }
+
+  .product-title {
+    font-size: 0.85rem;
+  }
+
+  .product-price {
+    font-size: 0.9rem;
+  }
+
+  .product-category {
+    font-size: 0.65rem;
+  }
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .action-btn svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .product-meta {
@@ -685,6 +726,10 @@ button {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.2rem;
 }
 
 .product-price {
@@ -696,6 +741,9 @@ button {
 .product-category {
   color: var(--gray);
   font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Newsletter */
@@ -795,10 +843,40 @@ button {
 }
 
 /* Footer broken into smaller sections or grid refined */
+/* Category Layout */
+.category-content-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.filters-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .category-content-wrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .filters-sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
 footer {
   padding-top: 3rem;
   padding-bottom: 1.5rem;
+  background-color: var(--panel-bg);
   border-top: 1px solid var(--border-color);
+  margin-top: 4rem;
 }
 
 @media (max-width: 768px) {
@@ -1619,7 +1697,13 @@ input:checked+.slider:before {
 
 @media (max-width: 1024px) {
   .nav-search-container {
-    max-width: 200px;
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-search-container {
+    display: none;
   }
 }
 
@@ -1779,6 +1863,65 @@ input:checked+.slider:before {
   }
 }
 
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid-2 .form-group {
+  animation: slideUpFade 0.5s ease backwards;
+  background: var(--card-bg);
+  padding: 0.5rem;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-2 .form-group:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='dark'] .grid-2 .form-group:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.grid-2 .form-group:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.grid-2 .form-group:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.grid-2 .form-group:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.grid-2 .form-group:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.grid-2 .form-group:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.grid-2 .form-group:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
 @media (max-width: 768px) {
   .checkout-form {
     padding: 1.5rem;
@@ -1791,12 +1934,20 @@ input:checked+.slider:before {
 
 .auth-input {
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1.25rem;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--input-bg);
   color: var(--text-main);
   font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.auth-input:focus {
+  border-color: var(--primary);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
 }
 
 .responsive-modal {

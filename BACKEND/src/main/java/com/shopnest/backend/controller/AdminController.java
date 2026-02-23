@@ -29,6 +29,9 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
     // --- Product Management ---
 
     @GetMapping("/products")
@@ -142,5 +145,27 @@ public class AdminController {
             orderRepository.deleteAll(ordersToReset);
         }
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/register-admin")
+    public ResponseEntity<?> registerAdmin(@RequestBody @NonNull User adminUser) {
+        if (userRepository.existsByUsername(adminUser.getUsername())) {
+            return ResponseEntity.badRequest().body("Error: Username is already taken!");
+        }
+
+        if (userRepository.existsByEmail(adminUser.getEmail())) {
+            return ResponseEntity.badRequest().body("Error: Email is already in use!");
+        }
+
+        // Force ROLE_ADMIN
+        adminUser.setRole("ROLE_ADMIN");
+
+        // Hash password
+        adminUser.setPassword(passwordEncoder.encode(adminUser.getPassword()));
+
+        // Save new admin
+        userRepository.save(adminUser);
+
+        return ResponseEntity.ok("Admin registered successfully!");
     }
 }

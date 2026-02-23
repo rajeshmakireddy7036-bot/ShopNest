@@ -69,7 +69,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
                                                 <Plus size={14} />
                                             </button>
                                         </div>
-                                        <span className="cart-item-price" style={{ fontWeight: '700' }}>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
+                                        <span className="cart-item-price" style={{ fontWeight: '700' }}>₹{(item.price * (item.quantity || 1)).toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
                         <div className="cart-summary">
                             <div className="summary-row">
                                 <span>Subtotal</span>
-                                <span style={{ fontWeight: '700' }}>${subtotal.toFixed(2)}</span>
+                                <span style={{ fontWeight: '700' }}>₹{subtotal.toFixed(2)}</span>
                             </div>
                             <div className="summary-row">
                                 <span>Shipping</span>
@@ -90,7 +90,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
                             </div>
                             <div className="summary-row total">
                                 <span>Total</span>
-                                <span>${subtotal.toFixed(2)}</span>
+                                <span>₹{subtotal.toFixed(2)}</span>
                             </div>
                         </div>
                         <button

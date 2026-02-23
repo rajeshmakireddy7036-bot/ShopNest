@@ -64,9 +64,8 @@ const Checkout = () => {
             if (!response.ok) throw new Error('Failed to place order');
 
             setIsProcessing(false);
-            alert("Order placed successfully! Thank you for shopping with ShopNest.");
             clearCart();
-            navigate('/');
+            navigate('/order-success');
         } catch (error) {
             console.error('Checkout error:', error);
             alert("There was an error placing your order. Please try again.");
@@ -110,36 +109,41 @@ const Checkout = () => {
                 <form onSubmit={handleSubmit} className="checkout-form">
 
                     {/* Shipping Section */}
-                    <div style={{ background: 'var(--card-bg)', padding: '0', marginBottom: '1.5rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-                            <Truck size={24} color="var(--primary)" />
-                            <h2 style={{ fontSize: '1.4rem', fontWeight: '600' }}>Shipping Information</h2>
+                    <div style={{ background: 'var(--card-bg)', padding: '2rem', marginBottom: '2rem', borderRadius: '16px', border: '1px solid var(--border-color)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
+                            <div style={{ padding: '0.6rem', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '10px' }}>
+                                <Truck size={24} color="var(--primary)" />
+                            </div>
+                            <div>
+                                <h2 style={{ fontSize: '1.4rem', fontWeight: '700' }}>Shipping Information</h2>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--gray)' }}>Where should we send your order?</p>
+                            </div>
                         </div>
 
                         <div className="grid-2">
                             <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>Email Address</label>
-                                <input type="email" name="email" required className="auth-input" onChange={handleInputChange} />
+                                <label style={{ display: 'block', marginBottom: '0.6rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--gray)' }}>Email Address</label>
+                                <input type="email" name="email" required className="auth-input" placeholder="you@example.com" onChange={handleInputChange} />
                             </div>
-                            <div className="form-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>First Name</label>
-                                <input type="text" name="firstName" required className="auth-input" onChange={handleInputChange} />
+                            <div className="form-group" style={{ animationDelay: '0.1s' }}>
+                                <label style={{ display: 'block', marginBottom: '0.6rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--gray)' }}>First Name</label>
+                                <input type="text" name="firstName" required className="auth-input" placeholder="John" onChange={handleInputChange} />
                             </div>
-                            <div className="form-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>Last Name</label>
-                                <input type="text" name="lastName" required className="auth-input" onChange={handleInputChange} />
+                            <div className="form-group" style={{ animationDelay: '0.15s' }}>
+                                <label style={{ display: 'block', marginBottom: '0.6rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--gray)' }}>Last Name</label>
+                                <input type="text" name="lastName" required className="auth-input" placeholder="Doe" onChange={handleInputChange} />
                             </div>
-                            <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>Street Address</label>
-                                <input type="text" name="address" required className="auth-input" onChange={handleInputChange} />
+                            <div className="form-group" style={{ gridColumn: 'span 2', animationDelay: '0.2s' }}>
+                                <label style={{ display: 'block', marginBottom: '0.6rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--gray)' }}>Street Address</label>
+                                <input type="text" name="address" required className="auth-input" placeholder="123 Fashion Blvd" onChange={handleInputChange} />
                             </div>
-                            <div className="form-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>City</label>
-                                <input type="text" name="city" required className="auth-input" onChange={handleInputChange} />
+                            <div className="form-group" style={{ animationDelay: '0.25s' }}>
+                                <label style={{ display: 'block', marginBottom: '0.6rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--gray)' }}>City</label>
+                                <input type="text" name="city" required className="auth-input" placeholder="New York" onChange={handleInputChange} />
                             </div>
-                            <div className="form-group">
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600' }}>Zip Code</label>
-                                <input type="text" name="zipCode" required className="auth-input" onChange={handleInputChange} />
+                            <div className="form-group" style={{ animationDelay: '0.3s' }}>
+                                <label style={{ display: 'block', marginBottom: '0.6rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--gray)' }}>Zip Code</label>
+                                <input type="text" name="zipCode" required className="auth-input" placeholder="10001" onChange={handleInputChange} />
                             </div>
                         </div>
                     </div>
@@ -168,7 +172,7 @@ const Checkout = () => {
                     </div>
 
                     <button className="btn btn-primary" style={{ width: '100%', padding: '1.2rem', fontSize: '1.1rem' }} disabled={isProcessing}>
-                        {isProcessing ? "Processing..." : `Place Order • $${subtotal.toFixed(2)}`}
+                        {isProcessing ? "Processing..." : `Place Order • ₹${subtotal.toFixed(2)}`}
                     </button>
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', color: 'var(--gray)', fontSize: '0.9rem' }}>
@@ -191,7 +195,7 @@ const Checkout = () => {
                                     <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>{item.name}</div>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--gray)', fontSize: '0.85rem' }}>
                                         <span>Qty: {item.quantity} {item.selectedSize && `• Size: ${item.selectedSize}`}</span>
-                                        <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>${(item.price * item.quantity).toFixed(2)}</span>
+                                        <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>₹{(item.price * item.quantity).toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +205,7 @@ const Checkout = () => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--gray)', fontSize: '0.95rem' }}>
                             <span>Subtotal</span>
-                            <span>${subtotal.toFixed(2)}</span>
+                            <span>₹{subtotal.toFixed(2)}</span>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--gray)', fontSize: '0.95rem' }}>
                             <span>Shipping</span>
@@ -209,7 +213,7 @@ const Checkout = () => {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.2rem', fontWeight: '700', marginTop: '0.5rem' }}>
                             <span>Total</span>
-                            <span>${subtotal.toFixed(2)}</span>
+                            <span>₹{subtotal.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>

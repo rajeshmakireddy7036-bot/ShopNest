@@ -32,10 +32,8 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Error: Email is already in use!");
         }
 
-        // Set default role if not provided
-        if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("ROLE_USER");
-        }
+        // All public registrations get ROLE_USER
+        user.setRole("ROLE_USER");
 
         // --- PASSWORD HASHING ---
         user.setPassword(passwordEncoder.encode(user.getPassword()));

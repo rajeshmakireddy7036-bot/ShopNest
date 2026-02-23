@@ -22,6 +22,8 @@ import ProductDetail from './components/ProductDetail';
 import AccessoriesCategory from './components/AccessoriesCategory';
 import FootwearCategory from './components/FootwearCategory';
 import Checkout from './components/Checkout';
+import OrderSuccess from './components/OrderSuccess';
+import ShippingInfo from './components/ShippingInfo';
 import './auth.css';
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
             <Route path="/category/footwear" element={<FootwearCategory />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/shipping" element={<ShippingInfo />} />
           </Route>
 
           {/* Auth Routes without Navbar and Footer */}
@@ -75,6 +79,16 @@ function MainLayout() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.openOrders) {
+      setIsUserPanelOpen(true);
+      // We'll also need to tell the UserPanel to switch to orders
+      window.dispatchEvent(new CustomEvent('open-user-tab', { detail: 'orders' }));
+      // Clear state so it doesn't keep opening
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -217,7 +231,7 @@ function MainLayout() {
               <ul>
                 <li><a href="#">Customer Service</a></li>
                 <li><a href="#">Returns & Exchanges</a></li>
-                <li><a href="#">Shipping Information</a></li>
+                <li><Link to="/shipping">Shipping Information</Link></li>
                 <li><a href="#">Track Order</a></li>
               </ul>
             </div>
@@ -456,7 +470,7 @@ function ProductCard({ product }) {
       <div className="product-info">
         <div className="product-meta">
           <h3 className="product-title" onClick={() => navigate(`/product/${id}`)} style={{ cursor: 'pointer' }}>{name}</h3>
-          <span className="product-price">${price}</span>
+          <span className="product-price">₹{price}</span>
         </div>
         <p className="product-category">{product.subCategory || product.category}</p>
       </div>
@@ -544,7 +558,7 @@ function SearchOverlay({ isOpen, onClose, searchQuery, setSearchQuery, searchRes
                   <h4>{product.name}</h4>
                   <p>{product.category}</p>
                 </div>
-                <div className="result-price">${product.price}</div>
+                <div className="result-price">₹{product.price}</div>
               </div>
             ))
           )}
@@ -649,7 +663,7 @@ function WishlistOverlay({ isOpen, onClose }) {
                     </div>
                     <div className="result-info" style={{ textAlign: 'center' }}>
                       <h4 style={{ fontSize: '1rem', marginBottom: '0.2rem' }}>{product.name}</h4>
-                      <p style={{ color: 'var(--primary)', fontWeight: '700' }}>${product.price}</p>
+                      <p style={{ color: 'var(--primary)', fontWeight: '700' }}>₹{product.price}</p>
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                       <button
@@ -724,7 +738,7 @@ function QuickViewModal({ product, onClose }) {
 
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <h4 style={{ fontSize: '1.1rem', marginBottom: '0.4rem' }}>{product.name}</h4>
-          <p style={{ color: 'var(--primary)', fontWeight: '700', fontSize: '1.2rem' }}>${product.price}</p>
+          <p style={{ color: 'var(--primary)', fontWeight: '700', fontSize: '1.2rem' }}>₹{product.price}</p>
 
           {product.sizes && product.sizes.length > 0 && (
             <div style={{ marginTop: '1rem' }}>

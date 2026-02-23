@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Package, Users, DollarSign, RotateCcw } from 'lucide-react';
+import { ShoppingCart, Package, Users, IndianRupee, RotateCcw } from 'lucide-react';
 import { fetchWithAuth } from '../utils/api';
 
 const AdminHome = () => {
@@ -57,9 +57,9 @@ const AdminHome = () => {
 
             <div className="stat-grid">
                 <StatCard
-                    icon={<DollarSign color="#38a169" />}
+                    icon={<IndianRupee color="#38a169" />}
                     label="Total Sales"
-                    value={`$${stats.totalSales.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                    value={`₹${stats.totalSales.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                     trend="+12.5%"
                     onReset={() => handleReset('Total Sales')}
                 />
@@ -113,7 +113,7 @@ const AdminHome = () => {
                                     </div>
                                 </div>
                                 <div style={{ textAlign: 'right' }}>
-                                    <p style={{ fontWeight: 700, color: 'var(--primary)' }}>${activity.totalAmount.toFixed(2)}</p>
+                                    <p style={{ fontWeight: 700, color: 'var(--primary)' }}>₹{activity.totalAmount.toFixed(2)}</p>
                                     <span style={{
                                         fontSize: '0.7rem',
                                         padding: '0.2rem 0.5rem',

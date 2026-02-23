@@ -48,6 +48,18 @@ const UserPanel = ({ isOpen, onClose, userData, setUserData, onLogout, isDarkMod
     const navigate = useNavigate();
 
     useEffect(() => {
+        const handleOpenTab = (e) => {
+            if (e.detail) {
+                setActiveTab(e.detail);
+                setActiveSettingTab(null);
+            }
+        };
+
+        window.addEventListener('open-user-tab', handleOpenTab);
+        return () => window.removeEventListener('open-user-tab', handleOpenTab);
+    }, []);
+
+    useEffect(() => {
         if (userData) {
             setFormData({
                 fullName: userData.fullName || '',
@@ -591,13 +603,13 @@ const UserPanel = ({ isOpen, onClose, userData, setUserData, onLogout, isDarkMod
                                                 {order.items?.map((item, idx) => (
                                                     <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem' }}>
                                                         <span>{item.productName} x {item.quantity}</span>
-                                                        <span>${(item.price * item.quantity).toFixed(2)}</span>
+                                                        <span>₹{(item.price * item.quantity).toFixed(2)}</span>
                                                     </div>
                                                 ))}
                                             </div>
                                             <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.8rem', marginTop: '0.4rem', display: 'flex', justifyContent: 'space-between', fontWeight: '700' }}>
                                                 <span>Total</span>
-                                                <span>${order.totalAmount?.toFixed(2)}</span>
+                                                <span>₹{order.totalAmount?.toFixed(2)}</span>
                                             </div>
                                         </div>
                                     ))}

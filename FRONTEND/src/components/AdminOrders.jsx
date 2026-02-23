@@ -55,7 +55,7 @@ const AdminOrders = () => {
                                 <tr key={order.id}>
                                     <td><span style={{ fontSize: '0.8rem', color: '#718096' }}>#{order.id.substring(18)}</span></td>
                                     <td>{order.username}</td>
-                                    <td>${order.totalAmount}</td>
+                                    <td>₹{order.totalAmount}</td>
                                     <td>{new Date(order.orderDate).toLocaleDateString()}</td>
                                     <td>
                                         <span className={`status-badge status-${order.status ? order.status.toLowerCase() : 'pending'}`}>

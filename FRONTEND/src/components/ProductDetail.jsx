@@ -190,7 +190,7 @@ const ProductDetail = () => {
                     </div>
 
                     <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary)' }}>
-                        ${product.price}
+                        ₹{product.price}
                     </div>
 
                     <p style={{ color: 'var(--gray)', lineHeight: '1.6', fontSize: '0.95rem' }}>
@@ -288,7 +288,7 @@ const ProductDetail = () => {
                             <Truck size={20} color="var(--primary)" />
                             <div>
                                 <div style={{ fontSize: '0.75rem', fontWeight: '700' }}>Free Shipping</div>
-                                <div style={{ fontSize: '0.65rem', color: 'var(--gray)' }}>On orders +$100</div>
+                                <div style={{ fontSize: '0.65rem', color: 'var(--gray)' }}>On orders +₹100</div>
                             </div>
                         </div>
                     </div>

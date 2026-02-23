@@ -233,11 +233,11 @@ const ProductCardInline = ({ product, addToCart }) => {
                     </button>
                 </div>
             </div>
-            <div className="product-info" style={{ padding: '0.6rem' }}>
-                <h3 className="product-title" style={{ fontSize: '0.85rem', marginBottom: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} onClick={() => navigate(`/product/${product.id}`)}>{product.name}</h3>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="product-price" style={{ fontSize: '0.9rem', fontWeight: '700' }}>${product.price}</span>
-                    <p className="product-category" style={{ fontSize: '0.65rem', margin: 0 }}>{product.category}</p>
+            <div className="product-info">
+                <h3 className="product-title" onClick={() => navigate(`/product/${product.id}`)}>{product.name}</h3>
+                <div className="product-meta">
+                    <span className="product-price">₹{product.price}</span>
+                    <p className="product-category">{product.category}</p>
                 </div>
             </div>
         </div>

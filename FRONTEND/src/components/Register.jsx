@@ -52,7 +52,7 @@ const Register = () => {
                 throw new Error(errorData || 'Registration failed');
             }
 
-            setSuccess(`Registration as ${formData.role === 'ROLE_ADMIN' ? 'Admin' : 'User'} successful! Redirecting to login...`);
+            setSuccess('Registration successful! Redirecting to login...');
 
             // Wait 2 seconds before redirecting
             setTimeout(() => {
@@ -67,27 +67,10 @@ const Register = () => {
     };
 
     return (
-        <div className={`auth-wrapper ${formData.role === 'ROLE_ADMIN' ? 'admin-portal-bg' : ''}`} style={{ transition: 'all 0.5s ease' }}>
-            <div className={`auth-card ${formData.role === 'ROLE_ADMIN' ? 'admin-portal-card' : ''}`}>
-                <h2 className="auth-title">ShopNest {formData.role === 'ROLE_ADMIN' ? 'Admin' : ''}</h2>
+        <div className="auth-wrapper">
+            <div className="auth-card">
+                <h2 className="auth-title">ShopNest</h2>
                 <p className="auth-subtitle">Join the ShopNest community</p>
-
-                <div className="role-selector">
-                    <button
-                        type="button"
-                        className={`role-btn ${formData.role === 'ROLE_USER' ? 'active' : ''}`}
-                        onClick={() => setFormData({ ...formData, role: 'ROLE_USER' })}
-                    >
-                        User Account
-                    </button>
-                    <button
-                        type="button"
-                        className={`role-btn ${formData.role === 'ROLE_ADMIN' ? 'active' : ''}`}
-                        onClick={() => setFormData({ ...formData, role: 'ROLE_ADMIN' })}
-                    >
-                        Admin Account
-                    </button>
-                </div>
 
                 {error && <div className="error-message">{error}</div>}
                 {success && <div className="success-message">{success}</div>}
@@ -156,7 +139,7 @@ const Register = () => {
                     </div>
 
                     <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', marginTop: '0.5rem' }}>
-                        {loading ? 'Processing...' : `Sign up as ${formData.role === 'ROLE_ADMIN' ? 'Admin' : 'User'}`}
+                        {loading ? 'Processing...' : 'Sign up'}
                     </button>
                 </form>
 
