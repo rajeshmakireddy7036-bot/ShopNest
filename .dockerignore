@@ -1,0 +1,7 @@
+FRONTEND/node_modules
+FRONTEND/dist
+BACKEND/target
+BACKEND/.mvn
+*.md
+.git
+.vscode

@@ -1,0 +1,23 @@
+# Backend build artifacts
+BACKEND/target/
+BACKEND/.mvn/
+
+# Frontend build artifacts
+FRONTEND/node_modules/
+FRONTEND/dist/
+
+# Static files copied into backend (rebuilt during deploy)
+BACKEND/src/main/resources/static/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.local
